@@ -1,0 +1,57 @@
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+
+\ProvidesPackage{worksheet}
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{totcount}
+\RequirePackage{forloop}
+\RequirePackage{calc}
+
+\newcounter{worksheetnumber}
+\newcounter{starttask}
+\newcounter{max}
+\newcounter{ct}
+\newtotcounter{cols}
+\newtotcounter{task}
+\setcounter{cols}{0}
+\setcounter{starttask}{1}
+\setcounter{task}{0}
+
+\newcommand{\worksheetnumber}[1]{\setcounter{worksheetnumber}{#1}}
+\newcommand{\course}[1]{\renewcommand{\course}{#1}}
+\newcommand{\tutor}[1]{\renewcommand{\tutor}{#1}} 
+\newcommand{\student}[1]{\renewcommand{\student}{#1}}
+\newcommand{\starttask}[1]{\setcounter{starttask}{#1} \setcounter{task}{\value{starttask}-1}}
+
+\newcommand{\task}{\parindent0pt\stepcounter{task}\stepcounter{cols} \textbf{Aufgabe \arabic{task}:}}
+\newcommand{\skiptask}{\stepcounter{task}\stepcounter{cols}}
+\newcommand{\vor}{\parindent0pt\textbf{Voraussetzung:\,}}
+\newcommand{\beh}{\parindent0pt\textbf{Behauptung:\,}}
+\newcommand{\bew}{\parindent0pt\textbf{Beweis:\,}}
+
+\newcommand{\worksheetheader}{
+\parindent0pt
+\begin{center}\large\textsc{\course}\end{center}
+Übungsblatt \arabic{worksheetnumber}
+\hfill
+\begin{tabular}{l}
+\student\\
+Übungsleiter: \tutor\\
+\end{tabular}
+\begin{center}
+\begin{tabular}{p{4mm}*{\totvalue{cols}}{|p{4mm}}}
+\setcounter{max}{\totvalue{task}+1}
+\forloop{ct}{\value{starttask}}{\value{ct} < \value{max}}
+{%
+	\arabic{ct}&
+} $\sum$\\
+\hline
+\forloop{ct}{\value{starttask}}{\value{ct} < \value{max}}
+{%
+	&
+}
+\end{tabular}
+\end{center}
+\hrule
+\vspace*{3mm}
+}
