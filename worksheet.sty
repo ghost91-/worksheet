@@ -6,6 +6,7 @@
 \RequirePackage{totcount}
 \RequirePackage{forloop}
 \RequirePackage{calc}
+\RequirePackage{tabularx}
 
 \newcounter{worksheetnumber}
 \newcounter{starttask}
@@ -16,6 +17,8 @@
 \setcounter{cols}{0}
 \setcounter{starttask}{1}
 \setcounter{task}{0}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
 \newcommand{\worksheetnumber}[1]{\setcounter{worksheetnumber}{#1}}
 \newcommand{\course}[1]{\renewcommand{\course}{#1}}
@@ -39,7 +42,7 @@
 Übungsleiter: \tutor\\
 \end{tabular}
 \begin{center}
-\begin{tabular}{p{4mm}*{\totvalue{cols}}{|p{4mm}}}
+\begin{tabular}{C{5mm}*{\totvalue{cols}}{|C{5mm}}}
 \setcounter{max}{\totvalue{task}+1}
 \forloop{ct}{\value{starttask}}{\value{ct} < \value{max}}
 {%
